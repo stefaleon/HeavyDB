@@ -1,0 +1,33 @@
+<% include partials/header %>
+
+<div class="container text-center">
+
+	<header class=jumbotron>
+		<div class="container">
+			<h2>HeavyDB</h2>
+			<p>listing the bands that made the scenery heavy</p>
+			<hr />
+			<p>
+				<a class="btn btn-primary" href='/bands/new'> Add a Band </a>
+			</p>
+		</div>
+	</header>
+
+	<div class="row">
+		<% bands.forEach(function(band) { %>
+			<div class="col-md-3 col-sm6">	
+				<div class="thumbnail">
+					<img src=" <%= band.image %>" />
+					<div class="caption">
+						<h5> <%= band.name %>	</h5>
+					</div>
+				</div>			
+			</div>
+		<% }); %>
+	</div>	
+
+</div>
+
+<% include partials/footer %>
+
+	

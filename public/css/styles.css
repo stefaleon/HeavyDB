@@ -1,0 +1,22 @@
+.container {	
+	margin: 0 auto;
+}
+
+.jumbotron {
+	margin-top:20px;
+}
+
+.row {
+	display:flex;
+	flex-wrap: wrap;
+}
+
+img {
+	width: 450px;
+}
+
+footer {
+	margin: 20px 0; 
+	text-align: center;
+	font-size: 12px;
+}
