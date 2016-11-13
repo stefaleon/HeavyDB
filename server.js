@@ -19,13 +19,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 // schema setup
 var heavydbSchema = new mongoose.Schema({
 	name: String,
-	image: String
+	image: String,
+	description: String
 });
 
 var Band = mongoose.model('Band', heavydbSchema);
 
 app.get('/', function(req, res) {
-	 res.render('index');	
+	 res.render('start');	
 });
 
 
@@ -35,7 +36,7 @@ app.get('/bands', function(req, res) {
 		if (err) { 
 			console.log(err);
 		} else {
-			res.render('bands', { bands: allBands });
+			res.render('index', { bands: allBands });
 		}
 	});	
 });
@@ -59,9 +60,9 @@ app.get('/bands/new', function(req, res) {
 	res.render('new');
 });
 
-// SHOW - show one band
+// SHOW - shows info about one band
 app.get('/bands/:id', function(req, res) {
-	res.send('show one band')
+	res.render('show')
 });
 
 
