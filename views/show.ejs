@@ -4,20 +4,20 @@
 
 	<header class=jumbotron>
 		<div class="container">
-			<h2>showin one band</h2>
-			<p>listing the bands that made the scenery heavy</p>
+			<h2> <%= band.name %> </h2>	
 			<hr />
-			<p>
-				<a class="btn btn-primary btn-block" href='/bands/new'> Add a Band </a>
-			</p>
+			<img src=" <%= band.image %>" />
+			
 		</div>
 	</header>
+	
+	<br /> <p> <%= band.description %> </p>
 
-	<div class="row">
-		
-	</div>	
+	<br /> <a href="/bands">Back to Bands</a>			
+
 
 </div>
+
 
 <% include partials/footer %>
 
