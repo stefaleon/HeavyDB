@@ -4,9 +4,6 @@ var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-
-
-
 // var bands = [
 // 			{name: "AC/DC", image: "http://ultimateclassicrock.com/files/2012/09/ACDC-Bon-Scott.jpg"},
 // 			{name: "Motorhead", image: "http://assets.vg247.com/current//2016/02/motorhead.jpg"},			
@@ -27,26 +24,12 @@ var heavydbSchema = new mongoose.Schema({
 
 var Band = mongoose.model('Band', heavydbSchema);
 
-
-// Band.create(
-// 	{
-// 		name: "AC/DC",
-// 		image: "http://ultimateclassicrock.com/files/2012/09/ACDC-Bon-Scott.jpg"
-// 	}, function(err, band) {
-// 		if (err) { 
-// 			console.log(err);
-// 		} else {
-// 			console.log('band added to heavydb:');
-// 			console.log(band);
-// 		}
-// 	}
-// );
-
-
 app.get('/', function(req, res) {
 	 res.render('index');	
 });
 
+
+// INDEX - display all bands
 app.get('/bands', function(req, res) {
 	Band.find({}, function(err, allBands){
 		if (err) { 
@@ -57,6 +40,7 @@ app.get('/bands', function(req, res) {
 	});	
 });
 
+// CREATE - add new band to db
 app.post('/bands', function(req, res) {
 	var name = req.body.name;
 	var image = req.body.image;
@@ -70,9 +54,16 @@ app.post('/bands', function(req, res) {
 	});		
 });
 
+// NEW - show form to create new band
 app.get('/bands/new', function(req, res) {
 	res.render('new');
 });
+
+// SHOW - show one band
+app.get('/bands/:id', function(req, res) {
+	res.send('show one band')
+});
+
 
 app.listen(PORT, process.env.IP, function(){
     console.log('Server started on port', PORT);

@@ -1,0 +1,8 @@
+RESTFUL ROUTES
+
+name      url     verb     description
+=============================================================
+INDEX   /dogs       GET    display all bands
+NEW     /dogs/new  GET	 show form to create new band
+CREATE   /dogs     POST 	add new band to db
+SHOW	/dogs/:id 	GET 	shows info about one band
