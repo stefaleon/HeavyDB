@@ -1,2 +1,2 @@
 ## This is HeavyDB!
-### The database for heavy rock bands!
+### listing the bands that made the scenery heavy
