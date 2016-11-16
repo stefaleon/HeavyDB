@@ -4,7 +4,10 @@ var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Band = require('./models/band');
+var seedDb = require('./seeds');
 
+
+seedDb();
 mongoose.connect('mongodb://localhost/heavydb');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
