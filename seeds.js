@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Band = require('./models/band');
-
+var Comment = require('./models/comment');
 
 var data = [
 	{
@@ -40,6 +40,21 @@ function seedDb(){
 						console.log(err);
 					} else {
 						console.log(addedBand.name, "added");
+						// create a comment
+						Comment.create(
+							{
+								text: 'Great!',
+								author: 'FanBoy'
+							}, function (err, comment) {
+								if (err) { 
+									console.log(err);
+								} else {
+									addedBand.comments.push(comment);
+									addedBand.save();	
+									console.log('added a comment in ' + addedBand.name + ' listing');	
+								}								
+							}
+						);
 					}
 				});	
 			});

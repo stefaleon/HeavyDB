@@ -53,7 +53,7 @@ app.get('/bands/new', function(req, res) {
 
 // SHOW - shows info about one band
 app.get('/bands/:id', function(req, res) {
-	Band.findById(req.params.id, function(err, foundBand) {
+	Band.findById(req.params.id).populate('comments').exec(function(err, foundBand) {
 		if (err) {
 			console.log(err);
 		} else {

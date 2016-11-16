@@ -15,6 +15,14 @@
 
 	<br /> <a href="/bands">Back to Bands</a>			
 
+	<br />
+	<hr />	
+	<h3> Comments </h3>
+	<% band.comments.forEach(function(comment) { %>		
+		<hr /><p>
+		<strong><%= comment.author %></strong> - <%= comment.text %>
+		</p>
+	<%	}); %>
 
 </div>
 
