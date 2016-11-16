@@ -4,10 +4,13 @@ var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Band = require('./models/band');
+var Comment = require('./models/comment');
 var seedDb = require('./seeds');
 
 
-seedDb();
+
+//seedDb();
+
 mongoose.connect('mongodb://localhost/heavydb');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -26,7 +29,7 @@ app.get('/bands', function(req, res) {
 		if (err) { 
 			console.log(err);
 		} else {
-			res.render('index', { bands: allBands });
+			res.render('bands/index', { bands: allBands });
 		}
 	});	
 });
@@ -48,7 +51,7 @@ app.post('/bands', function(req, res) {
 
 // NEW - show form to create new band
 app.get('/bands/new', function(req, res) {
-	res.render('new');
+	res.render('bands/new');
 });
 
 // SHOW - shows info about one band
@@ -57,10 +60,45 @@ app.get('/bands/:id', function(req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render('show', { band: foundBand })
+			res.render('bands/show', { band: foundBand })
 		}
 	});	
 });
+
+
+
+// NEW COMMENT - show form to create new comment
+app.get('/bands/:id/comments/new', function(req, res) {
+	Band.findById(req.params.id, function(err, foundBand) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('comments/new', { band: foundBand })
+		}
+	});	
+});
+
+// CREATE COMMENT - create new comment
+app.post('/bands/:id/comments', function(req, res) {
+	Band.findById(req.params.id, function(err, foundBand) {
+		if (err) { 
+			console.log(err);
+			res.redirect('/bands');
+		} else {
+			Comment.create(req.body.comment, function(err, comment) {
+				if (err) { 
+					console.log(err);					
+				} else { 
+					foundBand.comments.unshift(comment);
+					foundBand.save();
+					res.redirect('/bands/' + foundBand._id);
+				}
+			});
+		}
+	});		
+});
+
+
 
 
 app.listen(PORT, process.env.IP, function(){

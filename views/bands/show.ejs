@@ -1,4 +1,4 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <div class="container text-center">
 
@@ -13,20 +13,22 @@
 	
 	<br /> <p> <%= band.description %> </p>
 
+	<br /> <p> Created on <%= band.created.toUTCString() %> </p>
 	<br /> <a href="/bands">Back to Bands</a>			
 
 	<br />
 	<hr />	
 	<h3> Comments </h3>
+	<br /> <a href="/bands/<%= band._id %>/comments/new">Add a Comment</a>
 	<% band.comments.forEach(function(comment) { %>		
 		<hr /><p>
-		<strong><%= comment.author %></strong> - <%= comment.text %>
+		<%= comment.created.toUTCString() %> by <strong><%= comment.author || 'anonymous user' %></strong> - <%= comment.text %>
 		</p>
 	<%	}); %>
 
 </div>
 
 
-<% include partials/footer %>
+<% include ../partials/footer %>
 
 	
