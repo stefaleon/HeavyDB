@@ -3,20 +3,14 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var Band = require('./models/band');
 
 mongoose.connect('mongodb://localhost/heavydb');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 
-// schema setup
-var heavydbSchema = new mongoose.Schema({
-	name: String,
-	image: String,
-	description: String
-});
 
-var Band = mongoose.model('Band', heavydbSchema);
 
 app.get('/', function(req, res) {
 	 res.render('start');	
