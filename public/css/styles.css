@@ -1,3 +1,7 @@
+body {
+    background-color: #fff;
+}
+
 .container {	
 	margin: 0 auto;
 }
@@ -14,6 +18,15 @@
 img {
 	width: 450px;
 }
+
+.bandwell {
+	background-color: #fff;
+}
+
+.commentswell {
+	background-color: #fcfcfc;
+}
+
 
 footer {
 	margin: 20px 0; 

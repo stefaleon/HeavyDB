@@ -2,31 +2,43 @@
 
 <div class="container text-center">
 
-	<header class=jumbotron>
-		<div class="container">
-			<h2> <%= band.name %> </h2>	
-			<hr />
-			<img src=" <%= band.image %>" />
+	<div class="well bandwell">
+
+		<header class=jumbotron>
+			<div class="container">
+				<h2> <%= band.name %> </h2>	
+				<hr />
+				<img src=" <%= band.image %>" />
+				
+			</div>
+		</header>
+		
+		<br /> <p> <%= band.description %> </p>
+		
+		<hr />
+		<p> Created on <%= band.created.toUTCString() %> </p>
+		<!--<br /> <a href="/bands">Back to Bands</a>			 
+		<br />-->
 			
-		</div>
-	</header>
-	
-	<br /> <p> <%= band.description %> </p>
+	</div> <!-- /well -->
 
-	<br /> <p> Created on <%= band.created.toUTCString() %> </p>
-	<br /> <a href="/bands">Back to Bands</a>			
+	<div class="well commentswell">
 
-	<br />
-	<hr />	
-	<h3> Comments </h3>
-	<br /> <a href="/bands/<%= band._id %>/comments/new">Add a Comment</a>
-	<% band.comments.forEach(function(comment) { %>		
-		<hr /><p>
-		<%= comment.created.toUTCString() %> by <strong><%= comment.author || 'anonymous user' %></strong> - <%= comment.text %>
-		</p>
-	<%	}); %>
+		<h3> Comments </h3>
+		<br /> 		
+		<a href="/bands/<%= band._id %>/comments/new">
+			<button type="button" class="btn btn-primary"> Add a Comment
+			</button></a>
 
-</div>
+		<% band.comments.forEach(function(comment) { %>		
+			<hr /><p>
+			<%= comment.created.toUTCString() %> by <strong><%= comment.author || 'anonymous user' %></strong> - <%= comment.text %>
+			</p>
+		<%	}); %>
+
+	</div> <!-- /well -->
+
+</div> <!-- /container -->
 
 
 <% include ../partials/footer %>
