@@ -7,15 +7,31 @@ var Band = require('./models/band');
 var Comment = require('./models/comment');
 var seedDb = require('./seeds');
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+var User = require('./models/user');
+
 
 
 //seedDb();
 
 mongoose.connect('mongodb://localhost/heavydb');
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+// passport config
+app.use(require('express-session')({
+	secret: 'what is this that stands befooore mee',
+	resave: false,
+	saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.get('/', function(req, res) {
