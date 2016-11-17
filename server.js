@@ -34,10 +34,16 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+
+// main route
 app.get('/', function(req, res) {
 	 res.render('start');	
 });
 
+
+
+// REStful routes
+//--------------------------------------
 
 // INDEX - display all bands
 app.get('/bands', function(req, res) {
@@ -113,6 +119,35 @@ app.post('/bands/:id/comments', function(req, res) {
 		}
 	});		
 });
+
+
+
+
+// authentication routes
+//--------------------------------------
+
+// show registration form
+app.get('/register', function(req, res) {
+	res.render('register');
+});
+
+// user registration
+app.post('/register', function(req, res) {
+	var newUserUsername = req.body.username;
+	var newUser = new User({username: newUserUsername});
+	User.register(newUser, req.body.password, function(err, user) {
+		if(err) {
+			console.log(err);
+			return res.render('register');
+		}
+		passport.authenticate('local')(req, res, function() {
+			console.log('registration successful for user', newUserUsername);
+			res.redirect('/bands');
+		});
+	});
+
+});
+
 
 
 

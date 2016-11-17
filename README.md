@@ -6,7 +6,7 @@
 * mongoose
 * express-session
 * Passport
-** passport-local
-** passport-local-mongoose
+* passport-local
+* passport-local-mongoose
 
 
