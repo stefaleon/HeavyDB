@@ -6,10 +6,11 @@
 		<div class="container">
 			<h2>HeavyDB</h2>
 			<p>listing the bands that made the scenery heavy</p>
-			<hr />
-			<p>
-				<a class="btn btn-primary btn-block" href='/bands/new'> Add a Band </a>
-			</p>
+			
+			<% if (currentUser) { %>
+				<hr /><p><a class="btn btn-primary btn-block" href='/bands/new'> Add a Band </a></p>
+			<% } %>
+
 		</div>
 	</header>		
 
