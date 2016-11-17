@@ -161,6 +161,11 @@ app.post('/login', passport.authenticate('local', {
 }), function(req, res) {
 });
 
+// user logout
+app.get('/logout', function(req, res) {
+	req.logout(); // passport destroys user data in the session
+	res.redirect('/bands');
+});
 
 
 
