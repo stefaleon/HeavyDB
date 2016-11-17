@@ -126,6 +126,7 @@ app.post('/bands/:id/comments', function(req, res) {
 // authentication routes
 //--------------------------------------
 
+
 // show registration form
 app.get('/register', function(req, res) {
 	res.render('register');
@@ -148,6 +149,17 @@ app.post('/register', function(req, res) {
 
 });
 
+// show login form
+app.get('/login', function(req, res) {
+	res.render('login');
+});
+
+// user login
+app.post('/login', passport.authenticate('local', {
+	successRedirect: '/bands',
+	failureRedirect: '/login'
+}), function(req, res) {
+});
 
 
 
