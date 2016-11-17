@@ -90,7 +90,7 @@ app.get('/bands/:id', function(req, res) {
 
 
 // NEW COMMENT - show form to create new comment
-app.get('/bands/:id/comments/new', function(req, res) {
+app.get('/bands/:id/comments/new', isLoggedIn, function(req, res) {
 	Band.findById(req.params.id, function(err, foundBand) {
 		if (err) {
 			console.log(err);
@@ -101,7 +101,7 @@ app.get('/bands/:id/comments/new', function(req, res) {
 });
 
 // CREATE COMMENT - create new comment
-app.post('/bands/:id/comments', function(req, res) {
+app.post('/bands/:id/comments', isLoggedIn, function(req, res) {
 	Band.findById(req.params.id, function(err, foundBand) {
 		if (err) { 
 			console.log(err);
@@ -166,6 +166,16 @@ app.get('/logout', function(req, res) {
 	req.logout(); // passport destroys user data in the session
 	res.redirect('/bands');
 });
+
+
+function isLoggedIn(req, res, next){
+	if (req.isAuthenticated()){
+		return next();
+	}
+	res.redirect('/login');
+}
+
+
 
 
 
