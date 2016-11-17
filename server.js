@@ -34,6 +34,15 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+// passport provides req.user, below it is passed to the templates in order to be used for ejs logic
+// middleware for passing current user to all routes
+app.use(function(req, res, next) {
+	res.locals.currentUser = req.user;
+	next();
+});
+
+
+
 
 // main route
 app.get('/', function(req, res) {
@@ -46,11 +55,11 @@ app.get('/', function(req, res) {
 //--------------------------------------
 
 // INDEX - display all bands
-app.get('/bands', function(req, res) {
+app.get('/bands', function(req, res) {	
 	Band.find({}, function(err, allBands){
 		if (err) { 
 			console.log(err);
-		} else {
+		} else {			
 			res.render('bands/index', { bands: allBands });
 		}
 	});	
