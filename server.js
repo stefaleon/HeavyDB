@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var Band = require('./models/band');
 var Comment = require('./models/comment');
 var seedDb = require('./seeds');
+var methodOverride = require('method-override');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
@@ -23,6 +24,7 @@ mongoose.connect('mongodb://localhost/heavydb');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 
 // passport config

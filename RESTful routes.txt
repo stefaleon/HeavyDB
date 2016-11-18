@@ -7,7 +7,7 @@ NEW		/bands/new	GET		show form to create new band
 CREATE   	/bands		POST		add new band to db
 SHOW		/bands/:id 	GET		shows info about a specific band
 EDIT		/bands/:id/edit	GET		show edit form for a band
-UPDATE		/bands/:id	PUT		update a specifig band
+UPDATE		/bands/:id	PUT		update a specific band
 DESTROY		/bands/:id	DELETE		delete a specific band
 
 

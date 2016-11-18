@@ -21,6 +21,14 @@
 				by <strong><%= band.author.username %></strong>
 			<% } %>		
 		</p>
+
+		
+		<a href='/bands/<%= band._id %>/edit'>
+			<button class="btn btn-warning">
+				Edit "<%= band.name %>" 
+			</button>		
+		</a>
+
 		<!--<br /> <a href="/bands">Back to Bands</a>			 
 		<br />-->
 			

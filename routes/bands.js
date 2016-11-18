@@ -52,6 +52,31 @@ router.get('/bands/:id', function(req, res) {
 	});	
 });
 
+// EDIT - show form to edit band
+router.get('/bands/:id/edit', isLoggedIn, function(req, res) {
+	Band.findById(req.params.id, function(err, foundBand) {
+		if (err) {
+			res.redirect('/bands');
+		} else {
+			res.render('bands/edit', { band: foundBand });
+		}	
+	});	
+});
+
+
+// UPDATE - update a specific band
+router.put('/bands/:id', isLoggedIn, function(req, res) {
+	Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, updatedBand) {
+		if (err) {
+			res.redirect('/bands');
+		} else {
+			res.redirect('/bands/' + req.params.id);
+		}
+	});
+});
+
+
+
 // middleware
 function isLoggedIn(req, res, next){
 	if (req.isAuthenticated()){
