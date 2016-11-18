@@ -16,7 +16,11 @@
 		<br /> <p> <%= band.description %> </p>
 		
 		<hr />
-		<p> Created on <%= band.created.toUTCString() %> </p>
+		<p> Created on <%= band.created.toUTCString() %> 
+			<% if (band.author.username) { %>
+				by <strong><%= band.author.username %></strong>
+			<% } %>		
+		</p>
 		<!--<br /> <a href="/bands">Back to Bands</a>			 
 		<br />-->
 			

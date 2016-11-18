@@ -18,11 +18,15 @@ router.get('/bands', function(req, res) {
 });
 
 // CREATE - add new band to db
-router.post('/bands', function(req, res) {
+router.post('/bands', isLoggedIn, function(req, res) {
 	var name = req.body.name;
 	var image = req.body.image;
 	var desc = req.body.description;
-	var newBand = { name: name, image: image, description: desc };
+	var author = {
+		id: req.user._id,
+		username: req.user.username
+	};
+	var newBand = { name: name, image: image, description: desc, author: author };
 	Band.create(newBand, function(err, newlyCreated){
 		if (err) { 
 			console.log(err);
@@ -33,7 +37,7 @@ router.post('/bands', function(req, res) {
 });
 
 // NEW - show form to create new band
-router.get('/bands/new', function(req, res) {
+router.get('/bands/new', isLoggedIn, function(req, res) {
 	res.render('bands/new');
 });
 
