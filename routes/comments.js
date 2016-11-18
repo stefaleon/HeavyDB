@@ -25,6 +25,12 @@ router.post('/bands/:id/comments', isLoggedIn, function(req, res) {
 				if (err) { 
 					console.log(err);					
 				} else { 
+					// add user name and id to comment
+					comment.author.id = req.user._id;
+					comment.author.username=  req.user.username;
+					// save comment
+					comment.save();
+					// add comment to the band's comments
 					foundBand.comments.unshift(comment);
 					foundBand.save();
 					res.redirect('/bands/' + foundBand._id);

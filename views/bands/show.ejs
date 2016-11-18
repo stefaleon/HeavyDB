@@ -32,7 +32,7 @@
 
 		<% band.comments.forEach(function(comment) { %>		
 			<hr /><p>
-			<%= comment.created.toUTCString() %> by <strong><%= comment.author || 'anonymous user' %></strong> - <%= comment.text %>
+			<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> - <%= comment.text %>
 			</p>
 		<%	}); %>
 
