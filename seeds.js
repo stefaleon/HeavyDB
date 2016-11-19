@@ -22,7 +22,7 @@ var data = [
 		name: 'Black Sabbath',
 		image: 'http://loudwire.com/files/2013/07/Black-Sabbath2.jpg',
 		description: 'Black Sabbath is credited with creating heavy metal. The success of their first two albums - Black Sabbath and Paranoid - marked a paradigm shift in the world of rock. Not until Black Sabbath upended the music scene did the term “heavy metal” enter the popular vocabulary to describe the denser, more thunderous offshoot of rock over which they presided. With their riff-based songs, extreme volume, and dark, demonic subject matter, Black Sabbath embodied key aspects of the heavy-metal aesthetic. Yet in their own words, Black Sabbath saw themselves as a “heavy underground” band. That term denoted both the intensity of their music and the network of fans who found them long before critics and the music industry took notice. In a sense, though they’ve sold more than 75 million albums worldwide, they still are a heavy underground band. Although they became eligible for the Rock and Roll Hall of Fame in 1995, they weren’t inducted until 2006. The truth is, they remain one of the most misunderstood bands in rock history.'
-	}
+	}	
 ];
 
 
@@ -40,21 +40,21 @@ function seedDb(){
 						console.log(err);
 					} else {
 						console.log(addedBand.name, "added");
-						// create a comment
-						Comment.create(
-							{
-								text: 'Great!',
-								author: 'FanBoy'
-							}, function (err, comment) {
-								if (err) { 
-									console.log(err);
-								} else {
-									addedBand.comments.push(comment);
-									addedBand.save();	
-									console.log('added a comment in ' + addedBand.name + ' listing');	
-								}								
-							}
-						);
+						// // create a comment
+						// Comment.create(
+						// 	{
+						// 		text: 'Great!',
+						// 		author: 'FanBoy'
+						// 	}, function (err, comment) {
+						// 		if (err) { 
+						// 			console.log(err);
+						// 		} else {
+						// 			addedBand.comments.push(comment);
+						// 			addedBand.save();	
+						// 			console.log('added a comment in ' + addedBand.name + ' listing');	
+						// 		}								
+						// 	}
+						// );
 					}
 				});	
 			});

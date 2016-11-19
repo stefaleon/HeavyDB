@@ -65,11 +65,11 @@ router.get('/bands/:id/edit', isLoggedIn, function(req, res) {
 
 
 // UPDATE - update a specific band
-router.put('/bands/:id', isLoggedIn, function(req, res) {
+router.put('/bands/:id', isLoggedIn, function(req, res) {	
 	Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, updatedBand) {
 		if (err) {
 			res.redirect('/bands');
-		} else {
+		} else {			
 			res.redirect('/bands/' + req.params.id);
 		}
 	});

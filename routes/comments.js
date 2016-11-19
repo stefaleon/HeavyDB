@@ -27,7 +27,7 @@ router.post('/bands/:id/comments', isLoggedIn, function(req, res) {
 				} else { 
 					// add user name and id to comment
 					comment.author.id = req.user._id;
-					comment.author.username=  req.user.username;
+					comment.author.username = req.user.username;
 					// save comment
 					comment.save();
 					// add comment to the band's comments

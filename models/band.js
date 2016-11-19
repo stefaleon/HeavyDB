@@ -9,17 +9,16 @@ var heavydbSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User'
 		},
-		username: String
+		username: {	
+			type: String,
+			default: 'admin'
+		}
 	},
 	created: {
 		type: Date,
 		default: Date.now
 	},
-	updated: [
-		{
-			type: Date
-		}
-	],
+	updated: Date,
 	comments: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

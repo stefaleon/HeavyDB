@@ -5,6 +5,7 @@
 <h2>Edit "<%= band.name %>"</h2>
 
 		<form action='/bands/<%= band._id %>?_method=PUT' method='POST'>
+			<input type='hidden' name='band[updated]' value="<%= Date.now() %>" />
 			<div class='form-group'>
 				<input type='text' name='band[name]' value="<%= band.name %>" class='form-control'/>
 			</div>

@@ -21,6 +21,12 @@
 				by <strong><%= band.author.username %></strong>
 			<% } %>		
 		</p>
+		<p> <% if (band.updated) { %>
+				Updated on <%= band.updated.toUTCString() %>				
+			<% } %>		
+		</p>
+
+
 
 		
 		<a href='/bands/<%= band._id %>/edit'>
