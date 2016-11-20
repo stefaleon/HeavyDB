@@ -76,6 +76,17 @@ router.put('/bands/:id', isLoggedIn, function(req, res) {
 });
 
 
+// DESTROY - delete a specific band
+router.delete('/bands/:id', function(req, res) {
+	Band.findByIdAndRemove(req.params.id, function(err){
+		if (err) {
+			res.redirect('/bands/' + req.params.id);
+		} else {			
+			res.redirect('/bands');
+		}
+	}); 
+});
+
 
 // middleware
 function isLoggedIn(req, res, next){

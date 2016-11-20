@@ -19,8 +19,6 @@ h1, h2 {
 	margin: 1.2em;
 }
 
-
-
 img {
 	width: 450px;
 }
@@ -30,9 +28,17 @@ img {
 }
 
 .commentswell {
-	background-color: #fcfcfc;
+	background-color: #fafafa;
 }
 
+#comment {
+	padding: 0.6em;
+	background-color: #fff;
+}
+
+#delete {
+	display: inline;
+}
 
 footer {
 	margin: 20px 0; 

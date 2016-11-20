@@ -34,6 +34,10 @@
 				Edit "<%= band.name %>" 
 			</button>		
 		</a>
+		<form id='delete' action='/bands/<%= band._id %>?_method=DELETE' method='POST'>
+			<button class="btn btn-danger">
+				Delete "<%= band.name %>" 
+		</form>
 
 		<!--<br /> <a href="/bands">Back to Bands</a>			 
 		<br />-->
@@ -50,7 +54,7 @@
 
 		<% band.comments.forEach(function(comment) { %>		
 			<hr /><p>
-			<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> - <%= comment.text %>
+			<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> - <div id='comment' ><%= comment.text %> </div>
 			</p>
 		<%	}); %>
 
