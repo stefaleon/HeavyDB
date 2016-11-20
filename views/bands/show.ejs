@@ -28,19 +28,19 @@
 
 
 
-		
-		<a href='/bands/<%= band._id %>/edit'>
-			<button class="btn btn-warning">
-				Edit "<%= band.name %>" 
-			</button>		
-		</a>
-		<form id='delete' action='/bands/<%= band._id %>?_method=DELETE' method='POST'>
-			<button class="btn btn-danger">
-				Delete "<%= band.name %>" 
-		</form>
+		<% if (currentUser && band.author.id.equals(currentUser._id)) { %>
+			<a href='/bands/<%= band._id %>/edit'>
+				<button class="btn btn-warning">
+					Edit "<%= band.name %>" 
+				</button>		
+			</a>
+			<form id='delete' action='/bands/<%= band._id %>?_method=DELETE' method='POST'>
+				<button class="btn btn-danger">
+					Delete "<%= band.name %>" 
+			</form>
+		<% } %>
 
-		<!--<br /> <a href="/bands">Back to Bands</a>			 
-		<br />-->
+		
 			
 	</div> <!-- /well -->
 

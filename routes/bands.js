@@ -53,19 +53,15 @@ router.get('/bands/:id', function(req, res) {
 });
 
 // EDIT - show form to edit band
-router.get('/bands/:id/edit', isLoggedIn, function(req, res) {
+router.get('/bands/:id/edit', checkAuthorization, function(req, res) {	
 	Band.findById(req.params.id, function(err, foundBand) {
-		if (err) {
-			res.redirect('/bands');
-		} else {
-			res.render('bands/edit', { band: foundBand });
-		}	
-	});	
+		res.render('bands/edit', { band: foundBand });			
+	}); 	
 });
 
 
 // UPDATE - update a specific band
-router.put('/bands/:id', isLoggedIn, function(req, res) {	
+router.put('/bands/:id', checkAuthorization, function(req, res) {	
 	Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, updatedBand) {
 		if (err) {
 			res.redirect('/bands');
@@ -77,7 +73,7 @@ router.put('/bands/:id', isLoggedIn, function(req, res) {
 
 
 // DESTROY - delete a specific band
-router.delete('/bands/:id', function(req, res) {
+router.delete('/bands/:id', checkAuthorization, function(req, res) {
 	Band.findByIdAndRemove(req.params.id, function(err){
 		if (err) {
 			res.redirect('/bands/' + req.params.id);
@@ -95,6 +91,35 @@ function isLoggedIn(req, res, next){
 	}
 	res.redirect('/login');
 }
+
+
+function checkAuthorization(req, res, next){
+	// if user is authenticated (logged-in)
+	if (req.isAuthenticated()){
+		// find the band
+		Band.findById(req.params.id, function(err, foundBand) {
+			if (err) {
+				res.redirect('back');
+			} else {
+				// if current user is the creator of the band page...
+				// 	if (foundBand.author.id === req.user._id) WRONG!!!!!!!!!!!!
+				// we CAN NOT use === to check equality because 
+				// foundBand.author.id  is a mongoose object 
+				// while req.user._id is a string, so we need to 
+				// use the mongoose method 'equals', SO...
+				// if current user is the creator of the band page
+				if (foundBand.author.id.equals(req.user._id)) {
+					next();
+				} else {
+					res.redirect('back');
+				}				
+			}	
+		});	
+	} else {
+		res.redirect('back');
+	}
+} 	
+
 
 
 
