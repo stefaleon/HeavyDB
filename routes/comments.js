@@ -59,10 +59,11 @@ router.get('/bands/:id/comments/:comment_id/edit', function(req, res) {
 
 // UPDATE - update a specific comment
 router.put('/bands/:id/comments/:comment_id', function(req, res) {
-	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedBand) {
+	console.log(req.body.comment);
+	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
 		if (err) {
 			res.redirect(back);
-		} else {
+		} else {			
 			res.redirect('/bands/' + req.params.id);
 		}	
 	});

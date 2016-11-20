@@ -53,12 +53,18 @@
 			</button></a>
 
 		<% band.comments.forEach(function(comment) { %>		
-			<hr /><p>
-			<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> - <div id='comment' ><%= comment.text %> 
-				<a class="btn btn-xs btn-warning"
-					href="/bands/<%= band._id %>/comments/<%= comment._id %>/edit">
-					Edit</a></div>
-			</p>
+			<hr />
+			<div> 
+				<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> 
+					<% if (comment.updated){ %>
+						, updated on: <%= comment.updated.toUTCString() %>
+					<% } %>
+					<p id='comment' ><%= comment.text %> 
+						<a class="btn btn-xs btn-warning"
+							href="/bands/<%= band._id %>/comments/<%= comment._id %>/edit">
+							Edit</a>
+					</p>
+			</div> <!-- end of comments div -->
 		<%	}); %>
 
 	</div> <!-- /well -->

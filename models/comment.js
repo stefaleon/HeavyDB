@@ -12,7 +12,8 @@ var commentSchema = mongoose.Schema({
 	created: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	updated: Date
 });
 
 var Comment = mongoose.model('Comment', commentSchema);
