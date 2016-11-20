@@ -37,6 +37,7 @@
 			<form id='delete' action='/bands/<%= band._id %>?_method=DELETE' method='POST'>
 				<button class="btn btn-danger">
 					Delete "<%= band.name %>" 
+				</button>
 			</form>
 		<% } %>
 
@@ -55,15 +56,22 @@
 		<% band.comments.forEach(function(comment) { %>		
 			<hr />
 			<div> 
+				<div id='commentcreatedupdated'>
 				<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> 
 					<% if (comment.updated){ %>
 						, updated on: <%= comment.updated.toUTCString() %>
 					<% } %>
-					<p id='comment' ><%= comment.text %> 
-						<a class="btn btn-xs btn-warning"
-							href="/bands/<%= band._id %>/comments/<%= comment._id %>/edit">
-							Edit</a>
-					</p>
+				</div>
+				<div id='comment' >
+					<%= comment.text %> 						
+					<a class="btn btn-xs btn-warning"
+						href="/bands/<%= band._id %>/comments/<%= comment._id %>/edit">
+						Edit</a>
+					<form id='delete' action='/bands/<%= band._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
+						<button class="btn  btn-xs btn-danger">
+						Delete</button>
+					</form>					
+				</div>
 			</div> <!-- end of comments div -->
 		<%	}); %>
 
