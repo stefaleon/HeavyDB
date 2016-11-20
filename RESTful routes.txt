@@ -12,7 +12,8 @@ DESTROY		/bands/:id	DELETE		delete a specific band
 
 
 
-NEW		/bands/:id/comments/new	GET	show form to create new comment
-CREATE   	/bands/:id/comments	POST	create new comment	
-
-
+NEW		/bands/:id/comments/new			GET	show form to create new comment
+CREATE   	/bands/:id/comments			POST	create new comment	
+EDIT		/bands/:id/comments/:comment_id/edit 	GET	show edit form for a comment
+UPDATE		/bands/:id/comments/:comment_id		PUT	update a specific comment
+DESTROY		/bands/:id/comments/:comment_id		DELETE	delete a specific comment

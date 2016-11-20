@@ -54,7 +54,10 @@
 
 		<% band.comments.forEach(function(comment) { %>		
 			<hr /><p>
-			<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> - <div id='comment' ><%= comment.text %> </div>
+			<%= comment.created.toUTCString() %> by <strong><%= comment.author.username || 'anonymous user' %></strong> - <div id='comment' ><%= comment.text %> 
+				<a class="btn btn-xs btn-warning"
+					href="/bands/<%= band._id %>/comments/<%= comment._id %>/edit">
+					Edit</a></div>
 			</p>
 		<%	}); %>
 

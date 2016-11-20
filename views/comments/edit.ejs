@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+
+<div class="container text-center">
+
+<h2>Edit Comment in "<%= band.name %>" </h2>
+
+		<form action='/bands/<%= band._id %>/comments/<%= comment._id %>?_method=PUT' method='POST'>
+			<div class='form-group'>
+				<input type='text' name='comment[author]' value='<%= currentUser.username %>' readonly class='form-control' />	
+			</div>		
+			<div class='form-group'>
+				<textarea type='text' rows=3 name='comment[text]' placeholder="your comment" class='form-control'><%= comment.text %></textarea>
+			</div>		
+			<div class="form-group">
+				<input type="submit" value="Submit Changes" class="btn btn-success btn-block"/>
+			</div>		
+		</form>
+		<hr />
+		<a href='/bands/<%= band._id %>'> Go Back </a>
+
+</div>
+
+<% include ../partials/footer %>

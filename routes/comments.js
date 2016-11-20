@@ -40,6 +40,35 @@ router.post('/bands/:id/comments', isLoggedIn, function(req, res) {
 	});		
 });
 
+// EDIT - show edit form for a comment
+router.get('/bands/:id/comments/:comment_id/edit', function(req, res) {
+	Band.findById(req.params.id, function(err, foundBand) {
+		if (err) {
+			res.redirect(back);
+		} else {
+			Comment.findById(req.params.comment_id, function(err, foundComment) {
+				if (err) {
+					res.redirect(back);
+				} else {
+					res.render('comments/edit', { band: foundBand, comment: foundComment });
+				}			
+			});
+		}	
+	});
+});
+
+// UPDATE - update a specific comment
+router.put('/bands/:id/comments/:comment_id', function(req, res) {
+	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedBand) {
+		if (err) {
+			res.redirect(back);
+		} else {
+			res.redirect('/bands/' + req.params.id);
+		}	
+	});
+});
+
+
 // middleware
 function isLoggedIn(req, res, next){
 	if (req.isAuthenticated()){
