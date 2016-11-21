@@ -41,7 +41,7 @@ router.post('/bands/:id/comments', isLoggedIn, function(req, res) {
 });
 
 // EDIT - show edit form for a comment
-router.get('/bands/:id/comments/:comment_id/edit', function(req, res) {
+router.get('/bands/:id/comments/:comment_id/edit', checkCommentAuthorization, function(req, res) {
 	Band.findById(req.params.id, function(err, foundBand) {
 		if (err) {
 			res.redirect(back);
@@ -58,7 +58,7 @@ router.get('/bands/:id/comments/:comment_id/edit', function(req, res) {
 });
 
 // UPDATE - update a specific comment
-router.put('/bands/:id/comments/:comment_id', function(req, res) {
+router.put('/bands/:id/comments/:comment_id', checkCommentAuthorization, function(req, res) {
 	console.log(req.body.comment);
 	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
 		if (err) {
@@ -71,7 +71,7 @@ router.put('/bands/:id/comments/:comment_id', function(req, res) {
 
 
 // DESTROY - delete a specific comment
-router.delete('/bands/:id/comments/:comment_id', function(req, res) {
+router.delete('/bands/:id/comments/:comment_id', checkCommentAuthorization, function(req, res) {
 	Comment.findByIdAndRemove(req.params.comment_id, function(err){
 		if (err) {
 			res.redirect(back);
@@ -90,6 +90,27 @@ function isLoggedIn(req, res, next){
 	}
 	res.redirect('/login');
 }
+
+function checkCommentAuthorization(req, res, next){
+	// if user is authenticated (logged-in)
+	if (req.isAuthenticated()){
+		// find the band
+		Comment.findById(req.params.comment_id, function(err, foundComment) {
+			if (err) {
+				res.redirect('back');
+			} else {
+				// if current user is the creator of the comment
+				if (foundComment.author.id.equals(req.user._id)) {
+					next();
+				} else {
+					res.redirect('back');
+				}				
+			}	
+		});	
+	} else {
+		res.redirect('back');
+	}
+} 	
 
 
 module.exports=  router;
