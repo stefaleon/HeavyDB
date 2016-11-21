@@ -7,6 +7,7 @@ var Band = require('./models/band');
 var Comment = require('./models/comment');
 var seedDb = require('./seeds');
 var methodOverride = require('method-override');
+var flash = require('connect-flash');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
@@ -25,6 +26,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
+app.use(flash());
 
 
 // passport config
@@ -44,6 +46,8 @@ passport.deserializeUser(User.deserializeUser());
 // middleware for passing current user to all routes
 app.use(function(req, res, next) {
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash('error');
+	res.locals.success = req.flash('success');
 	next();
 });
 

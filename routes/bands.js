@@ -30,8 +30,10 @@ router.post('/bands', middleware.isLoggedIn, function(req, res) {
 	var newBand = { name: name, image: image, description: desc, author: author };
 	Band.create(newBand, function(err, newlyCreated){
 		if (err) { 
+			req.flash('error', err);
 			console.log(err);
 		} else {
+			req.flash('success', 'Band Created Succesfully!');
 			res.redirect('/bands');
 		}
 	});		
@@ -46,6 +48,7 @@ router.get('/bands/new', middleware.isLoggedIn, function(req, res) {
 router.get('/bands/:id', function(req, res) {
 	Band.findById(req.params.id).populate('comments').exec(function(err, foundBand) {
 		if (err) {
+			req.flash('error', err);
 			console.log(err);
 		} else {
 			res.render('bands/show', { band: foundBand })
@@ -65,8 +68,10 @@ router.get('/bands/:id/edit', middleware.checkAuthorization, function(req, res) 
 router.put('/bands/:id', middleware.checkAuthorization, function(req, res) {	
 	Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, updatedBand) {
 		if (err) {
+			req.flash('error', err);
 			res.redirect('/bands');
-		} else {			
+		} else {	
+			req.flash('success', 'Update Successful!');		
 			res.redirect('/bands/' + req.params.id);
 		}
 	});
@@ -77,8 +82,10 @@ router.put('/bands/:id', middleware.checkAuthorization, function(req, res) {
 router.delete('/bands/:id', middleware.checkAuthorization, function(req, res) {
 	Band.findByIdAndRemove(req.params.id, function(err){
 		if (err) {
+			req.flash('error', err);
 			res.redirect('/bands/' + req.params.id);
-		} else {			
+		} else {	
+			req.flash('success', 'Remove Successful!');			
 			res.redirect('/bands');
 		}
 	}); 

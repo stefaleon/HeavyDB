@@ -44,6 +44,7 @@ router.post('/login', passport.authenticate('local', {
 // user logout
 router.get('/logout', function(req, res) {
 	req.logout(); // passport destroys user data in the session
+	req.flash('success', 'User Logged Out!');	
 	res.redirect('/bands');
 });
 

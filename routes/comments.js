@@ -20,10 +20,12 @@ router.post('/bands/:id/comments', middleware.isLoggedIn, function(req, res) {
 	Band.findById(req.params.id, function(err, foundBand) {
 		if (err) { 
 			console.log(err);
+			req.flash('error', 'Band Not Found!');
 			res.redirect('/bands');
 		} else {
 			Comment.create(req.body.comment, function(err, comment) {
 				if (err) { 
+					req.flash('error', 'Error');
 					console.log(err);					
 				} else { 
 					// add user name and id to comment
@@ -34,6 +36,7 @@ router.post('/bands/:id/comments', middleware.isLoggedIn, function(req, res) {
 					// add comment to the band's comments
 					foundBand.comments.unshift(comment);
 					foundBand.save();
+					req.flash('success', 'Comment Created Succesfully!');
 					res.redirect('/bands/' + foundBand._id);
 				}
 			});
@@ -63,8 +66,10 @@ router.put('/bands/:id/comments/:comment_id', middleware.checkCommentAuthorizati
 	console.log(req.body.comment);
 	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
 		if (err) {
+			req.flash('error', 'Failed to Create Comment!');
 			res.redirect(back);
-		} else {			
+		} else {
+			req.flash('success', 'Comment Updated Succesfully!');			
 			res.redirect('/bands/' + req.params.id);
 		}	
 	});
@@ -75,8 +80,10 @@ router.put('/bands/:id/comments/:comment_id', middleware.checkCommentAuthorizati
 router.delete('/bands/:id/comments/:comment_id', middleware.checkCommentAuthorization, function(req, res) {
 	Comment.findByIdAndRemove(req.params.comment_id, function(err){
 		if (err) {
+			req.flash('error', 'Failed to Remove Comment!');
 			res.redirect(back);
-		} else {			
+		} else {
+			req.flash('success', 'Comment Removed Succesfully!');			
 			res.redirect('/bands/' + req.params.id);
 		}	
 	}); 
