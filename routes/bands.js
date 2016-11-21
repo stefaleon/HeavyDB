@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Band = require('../models/band');
+var middleware = require('../middleware');
 
 
-// REStful routes
+// RESTful routes
 //--------------------------------------
 
 // INDEX - display all bands
@@ -18,7 +19,7 @@ router.get('/bands', function(req, res) {
 });
 
 // CREATE - add new band to db
-router.post('/bands', isLoggedIn, function(req, res) {
+router.post('/bands', middleware.isLoggedIn, function(req, res) {
 	var name = req.body.name;
 	var image = req.body.image;
 	var desc = req.body.description;
@@ -37,7 +38,7 @@ router.post('/bands', isLoggedIn, function(req, res) {
 });
 
 // NEW - show form to create new band
-router.get('/bands/new', isLoggedIn, function(req, res) {
+router.get('/bands/new', middleware.isLoggedIn, function(req, res) {
 	res.render('bands/new');
 });
 
@@ -53,7 +54,7 @@ router.get('/bands/:id', function(req, res) {
 });
 
 // EDIT - show form to edit band
-router.get('/bands/:id/edit', checkAuthorization, function(req, res) {	
+router.get('/bands/:id/edit', middleware.checkAuthorization, function(req, res) {	
 	Band.findById(req.params.id, function(err, foundBand) {
 		res.render('bands/edit', { band: foundBand });			
 	}); 	
@@ -61,7 +62,7 @@ router.get('/bands/:id/edit', checkAuthorization, function(req, res) {
 
 
 // UPDATE - update a specific band
-router.put('/bands/:id', checkAuthorization, function(req, res) {	
+router.put('/bands/:id', middleware.checkAuthorization, function(req, res) {	
 	Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, updatedBand) {
 		if (err) {
 			res.redirect('/bands');
@@ -73,7 +74,7 @@ router.put('/bands/:id', checkAuthorization, function(req, res) {
 
 
 // DESTROY - delete a specific band
-router.delete('/bands/:id', checkAuthorization, function(req, res) {
+router.delete('/bands/:id', middleware.checkAuthorization, function(req, res) {
 	Band.findByIdAndRemove(req.params.id, function(err){
 		if (err) {
 			res.redirect('/bands/' + req.params.id);
@@ -82,44 +83,6 @@ router.delete('/bands/:id', checkAuthorization, function(req, res) {
 		}
 	}); 
 });
-
-
-// middleware
-function isLoggedIn(req, res, next){
-	if (req.isAuthenticated()){
-		return next();
-	}
-	res.redirect('/login');
-}
-
-
-function checkAuthorization(req, res, next){
-	// if user is authenticated (logged-in)
-	if (req.isAuthenticated()){
-		// find the band
-		Band.findById(req.params.id, function(err, foundBand) {
-			if (err) {
-				res.redirect('back');
-			} else {
-				// if current user is the creator of the band page...
-				// 	if (foundBand.author.id === req.user._id) WRONG!!!!!!!!!!!!
-				// we CAN NOT use === to check equality because 
-				// foundBand.author.id  is a mongoose object 
-				// while req.user._id is a string, so we need to 
-				// use the mongoose method 'equals', SO...
-				// if current user is the creator of the band page
-				if (foundBand.author.id.equals(req.user._id)) {
-					next();
-				} else {
-					res.redirect('back');
-				}				
-			}	
-		});	
-	} else {
-		res.redirect('back');
-	}
-} 	
-
 
 
 
