@@ -21,6 +21,7 @@ middlewareObj.checkAuthorization =  function(req, res, next) {
 		// find the band
 		Band.findById(req.params.id, function(err, foundBand) {
 			if (err) {
+				req.flash('error', err);
 				res.redirect('back');
 			} else {
 				// if current user is the creator of the band page...
@@ -33,11 +34,13 @@ middlewareObj.checkAuthorization =  function(req, res, next) {
 				if (foundBand.author.id.equals(req.user._id)) {
 					next();
 				} else {
+					req.flash('error', 'Permission denied.');
 					res.redirect('back');
 				}				
 			}	
 		});	
 	} else {
+		req.flash('error', 'User must be logged in!');
 		res.redirect('back');
 	}
 } 	
@@ -50,17 +53,20 @@ middlewareObj.checkCommentAuthorization = function(req, res, next) {
 		// find the band
 		Comment.findById(req.params.comment_id, function(err, foundComment) {
 			if (err) {
+				req.flash('error', err);
 				res.redirect('back');
 			} else {
 				// if current user is the creator of the comment
 				if (foundComment.author.id.equals(req.user._id)) {
 					next();
 				} else {
+					req.flash('error', 'Permission denied.');
 					res.redirect('back');
 				}				
 			}	
 		});	
 	} else {
+		req.flash('error', 'User must be logged in!');
 		res.redirect('back');
 	}
 } 	

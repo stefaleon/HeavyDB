@@ -20,12 +20,12 @@ router.post('/bands/:id/comments', middleware.isLoggedIn, function(req, res) {
 	Band.findById(req.params.id, function(err, foundBand) {
 		if (err) { 
 			console.log(err);
-			req.flash('error', 'Band Not Found!');
+			req.flash('error', err);
 			res.redirect('/bands');
 		} else {
 			Comment.create(req.body.comment, function(err, comment) {
 				if (err) { 
-					req.flash('error', 'Error');
+					req.flash('error', err);
 					console.log(err);					
 				} else { 
 					// add user name and id to comment
@@ -48,10 +48,12 @@ router.post('/bands/:id/comments', middleware.isLoggedIn, function(req, res) {
 router.get('/bands/:id/comments/:comment_id/edit', middleware.checkCommentAuthorization, function(req, res) {
 	Band.findById(req.params.id, function(err, foundBand) {
 		if (err) {
+			req.flash('error', err);
 			res.redirect(back);
 		} else {
 			Comment.findById(req.params.comment_id, function(err, foundComment) {
 				if (err) {
+					req.flash('error', err);
 					res.redirect(back);
 				} else {
 					res.render('comments/edit', { band: foundBand, comment: foundComment });

@@ -19,10 +19,12 @@ router.post('/register', function(req, res) {
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
 			console.log(err);
-			return res.render('register');
+			req.flash('error', err.message);
+			return res.redirect('register');
 		}
 		passport.authenticate('local')(req, res, function() {
 			console.log('registration successful for user', newUserUsername);
+			req.flash('success', 'Welcome to HeavyDB ' + user.username + '!')
 			res.redirect('/bands');
 		});
 	});
@@ -48,15 +50,6 @@ router.get('/logout', function(req, res) {
 	res.redirect('/bands');
 });
 
-
-
-// middleware
-function isLoggedIn(req, res, next){
-	if (req.isAuthenticated()){
-		return next();
-	}
-	res.redirect('/login');
-}
 
 
 
