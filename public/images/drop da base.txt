@@ -1,0 +1,1 @@
+show dbs, use restful_blog_app, show collections, db.posts.find(), db.posts.drop()
