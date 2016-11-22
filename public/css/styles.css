@@ -2,61 +2,71 @@ body {
     background-color: #fff;
 }
 
-.container {	
-	margin: 0 auto;
+.container {    
+    margin: 0 auto;
 }
 
 .jumbotron {
-	margin-top:20px;	
+    margin-top:20px;    
 }
 
 .row {
-	display:flex;
-	flex-wrap: wrap;
+    display:flex;
+    flex-wrap: wrap;
 }
 
 h1, h2 {
-	margin: 1.2em;
+    margin: 1.2em;
 }
 
 img {
-	width: 450px;
+    width: 450px;
 }
 
 .bandwell {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .commentswell {
-	background-color: #fafafa;
+    background-color: #fafafa;
 }
 
 #comment {
-	padding: 0.6em;
-	background-color: #fff;
+    padding: 0.6em;
+    background-color: #fff;
 }
 
 #commentcreatedupdated {
-	font-size: 0.7em;
+    font-size: 0.7em;
 }
 
 #delete {
-	display: inline;
+    display: inline;
 }
 
 footer {
-	margin: 20px 0; 
-	text-align: center;
-	font-size: 12px;
+    margin: 20px 0; 
+    text-align: center;
+    font-size: 12px;
 }
 
 
 
 
 
+.cb-slideshow {
+    list-style: none;
+}
 
 
-
+/*
+The code below 
+by Mary Lou, http://tympanus.net/codrops/author/crnacura/
+was found in 'Fullscreen Background Image Slideshow with CSS3', 
+http://tympanus.net/codrops/2012/01/02/fullscreen-background-image-slideshow-with-css3/
+in codrops, http://tympanus.net/codrops/
+Thanks and cheers!
+*/
 
 
 .cb-slideshow,
@@ -84,7 +94,7 @@ footer {
     background-repeat: none;
     opacity: 0;
     z-index: 0;
-	-webkit-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     -webkit-animation: imageAnimation 36s linear infinite 0s;
     -moz-animation: imageAnimation 36s linear infinite 0s;
     -o-animation: imageAnimation 36s linear infinite 0s;
@@ -274,7 +284,7 @@ footer {
 }
 /* Show at least something when animations not supported */
 .no-cssanimations .cb-slideshow li span{
-	opacity: 1;
+    opacity: 1;
 }
 
 @media screen and (max-width: 1140px) { 
