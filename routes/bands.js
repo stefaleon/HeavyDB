@@ -22,7 +22,7 @@ router.get('/bands', function(req, res) {
 router.post('/bands', middleware.isLoggedIn, function(req, res) {
 	var name = req.body.name;
 	var image = req.body.image;
-	var desc = req.body.description;
+	var desc = req.sanitize(req.body.description);
 	var author = {
 		id: req.user._id,
 		username: req.user.username
@@ -66,7 +66,12 @@ router.get('/bands/:id/edit', middleware.checkAuthorization, function(req, res) 
 
 // UPDATE - update a specific band
 router.put('/bands/:id', middleware.checkAuthorization, function(req, res) {	
-	Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, updatedBand) {
+	var updated = req.body.updated;
+	var name = req.body.name;
+	var image = req.body.image;
+	var desc = req.sanitize(req.body.description);		
+	var editedBand = { updated: updated, name: name, image: image, description: desc };
+	Band.findByIdAndUpdate(req.params.id, editedBand, function(err, updatedBand) {
 		if (err) {
 			req.flash('error', err);
 			res.redirect('/bands');

@@ -9,7 +9,7 @@ var seedDb = require('./seeds');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var dbURL = process.env.dbURL || 'mongodb://localhost/heavydb';
-
+var expressSanitizer = require('express-sanitizer');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
@@ -30,6 +30,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(flash());
+app.use(expressSanitizer());
 
 
 // passport config

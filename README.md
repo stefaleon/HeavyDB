@@ -9,5 +9,5 @@
 * passport-local
 * passport-local-mongoose
 * connect-flash
-
+* express-sanitizer
 
