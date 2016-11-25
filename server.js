@@ -8,6 +8,8 @@ var Comment = require('./models/comment');
 var seedDb = require('./seeds');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
+var dbURL = process.env.dbURL || 'mongodb://localhost/heavydb';
+
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
@@ -21,7 +23,8 @@ var authRoutes = require('./routes/auth');
 
 //seedDb();
 
-mongoose.connect('mongodb://localhost/heavydb');
+mongoose.connect(dbURL);
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
